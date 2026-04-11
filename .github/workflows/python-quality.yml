@@ -20,10 +20,6 @@ on:
         type: string
         default: ""
 
-concurrency:
-  group: quality-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   lint_and_typecheck:
     name: Lint and Typecheck (py3.12)
