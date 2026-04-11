@@ -11,6 +11,25 @@ function Add-Issue {
 
 Write-Host "== Workstation Verify (Windows) ==" -ForegroundColor Cyan
 
+function Get-CodeCli {
+  $candidates = @(
+    "C:\Program Files\Microsoft VS Code\bin\code.cmd",
+    "C:\Program Files\Microsoft VS Code Insiders\bin\code-insiders.cmd"
+  )
+
+  foreach ($candidate in $candidates) {
+    if (Test-Path $candidate) {
+      return $candidate
+    }
+  }
+
+  if (Get-Command code -ErrorAction SilentlyContinue) {
+    return "code"
+  }
+
+  return $null
+}
+
 $commands = @("git", "gh", "code")
 foreach ($cmd in $commands) {
   if (-not (Get-Command $cmd -ErrorAction SilentlyContinue)) {
@@ -36,25 +55,28 @@ if (Get-Command gh -ErrorAction SilentlyContinue) {
   }
 }
 
-if (Get-Command code -ErrorAction SilentlyContinue) {
-  $codeVersion = (code --version | Select-Object -First 1) 2>$null
+ $codeCli = Get-CodeCli
+if ($codeCli) {
+  $codeVersion = (& $codeCli --version | Select-Object -First 1) 2>$null
   Write-Host "code: $codeVersion"
 
   $requiredExtensions = @(
-    "GitHub.copilot",
-    "GitHub.copilot-chat",
+    "github.copilot-chat",
     "ms-python.python",
     "ms-python.vscode-pylance",
     "ms-vscode.powershell",
-    "GitHub.vscode-pull-request-github"
+    "github.vscode-pull-request-github"
   )
 
-  $installed = code --list-extensions
+  $installed = (& $codeCli --list-extensions) | ForEach-Object { $_.ToLowerInvariant() }
   foreach ($ext in $requiredExtensions) {
     if ($installed -notcontains $ext) {
       Add-Issue "Missing VS Code extension: $ext"
     }
   }
+}
+else {
+  Add-Issue "VS Code CLI not found (code/code.cmd)"
 }
 
 if (Get-Command python -ErrorAction SilentlyContinue) {
