@@ -31,12 +31,11 @@ fi
 if command -v code >/dev/null 2>&1; then
   echo "code: $(code --version | head -n 1)"
   required_extensions=(
-    "GitHub.copilot"
-    "GitHub.copilot-chat"
+    "github.copilot-chat"
     "ms-python.python"
     "ms-python.vscode-pylance"
     "ms-vscode.powershell"
-    "GitHub.vscode-pull-request-github"
+    "github.vscode-pull-request-github"
   )
 
   installed_extensions="$(code --list-extensions)"
