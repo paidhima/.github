@@ -48,3 +48,7 @@ Why:
 - macOS bootstrap: `scripts/bootstrap-macos.sh`
 - Windows verify: `scripts/verify-environment-windows.ps1`
 - macOS verify: `scripts/verify-environment-macos.sh`
+
+## Copilot Extension Note
+- Current environment verification checks for `github.copilot-chat`.
+- This is intentional for the present extension landscape and should be revisited if extension packaging changes.
