@@ -39,3 +39,7 @@ cross-platform setup instructions.
 
 - [docs/workstation-consistency.md](docs/workstation-consistency.md) — cross-machine standards and operating cadence
 - [docs/copilot-consistency-checklist.md](docs/copilot-consistency-checklist.md) — pre-session Copilot consistency checks
+
+## Repository Provisioning
+
+- [docs/repo-provisioning-standard.md](docs/repo-provisioning-standard.md) — single source of truth for creating new repos with required standards, CI, and instruction policy

@@ -2,6 +2,9 @@
 
 This standard defines the minimum modernization bar for repositories in the paidhima account.
 
+For new repositories, use the canonical provisioning guide first:
+- [docs/repo-provisioning-standard.md](repo-provisioning-standard.md)
+
 ## Scope
 
 - Applies to active Python and PowerShell repositories.
