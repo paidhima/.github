@@ -26,6 +26,31 @@ After following this guide, a new repository will have:
   - `paidhima/template-powershell`
   - `paidhima/copilot-config`
 
+## One-Command Bootstrap (Recommended)
+
+Use the provisioning script from this repository.
+
+Windows PowerShell:
+
+```powershell
+.\scripts\provision-new-repo.ps1 -RepoName <repo-name> -Type python
+.\scripts\provision-new-repo.ps1 -RepoName <repo-name> -Type powershell
+```
+
+macOS/Linux:
+
+```bash
+bash scripts/provision-new-repo.sh --name <repo-name> --type python
+bash scripts/provision-new-repo.sh --name <repo-name> --type powershell
+```
+
+Behavior:
+
+1. Creates repo from the selected template.
+2. Clones into the configured workspace.
+3. Applies baseline branch protection.
+4. Creates `feature/bootstrap-repo-standards` branch.
+
 ## Provisioning Paths
 
 Choose one path.

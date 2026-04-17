@@ -31,6 +31,8 @@ Scripts in `scripts/` bootstrap a consistent local dev environment:
 - **bootstrap-macos.sh** — installs baseline macOS tools and VS Code extensions
 - **verify-environment-windows.ps1** — verifies Windows workstation parity
 - **verify-environment-macos.sh** — verifies macOS workstation parity
+- **provision-new-repo.ps1** — one-command Python/PowerShell repo provisioning (Windows)
+- **provision-new-repo.sh** — one-command Python/PowerShell repo provisioning (macOS/Linux)
 
 See [docs/workstation-setup.md](docs/workstation-setup.md) for full
 cross-platform setup instructions.
@@ -43,3 +45,13 @@ cross-platform setup instructions.
 ## Repository Provisioning
 
 - [docs/repo-provisioning-standard.md](docs/repo-provisioning-standard.md) — single source of truth for creating new repos with required standards, CI, and instruction policy
+
+Quick start:
+
+```powershell
+.\scripts\provision-new-repo.ps1 -RepoName my-new-repo -Type python
+```
+
+```bash
+bash scripts/provision-new-repo.sh --name my-new-repo --type powershell
+```
