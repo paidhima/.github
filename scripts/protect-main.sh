@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# protect-main.sh — Apply baseline branch protection to a repo's main branch
+# protect-main.sh — Apply baseline branch protection to a repo's default branch
 #
 # Usage:
 #   bash scripts/protect-main.sh <repo-name>
@@ -20,9 +20,17 @@ OWNER="paidhima"
 
 protect_repo() {
     local repo="$1"
-    echo "Applying branch protection to ${OWNER}/${repo} (main)..."
+    local default_branch
+    default_branch=$(gh api "repos/${OWNER}/${repo}" --jq '.default_branch')
 
-    gh api "repos/${OWNER}/${repo}/branches/main/protection" \
+    if [ -z "${default_branch}" ]; then
+        echo "  FAILED: ${repo} - could not determine default branch" >&2
+        return 1
+    fi
+
+    echo "Applying branch protection to ${OWNER}/${repo} (${default_branch})..."
+
+    gh api "repos/${OWNER}/${repo}/branches/${default_branch}/protection" \
         -X PUT \
         --input - <<'EOF'
 {

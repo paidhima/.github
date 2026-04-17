@@ -1,4 +1,4 @@
-# protect-main.ps1 — Apply baseline branch protection to a repo's main branch
+# protect-main.ps1 — Apply baseline branch protection to a repo's default branch
 #
 # Usage:
 #   .\scripts\protect-main.ps1 -Repo conduit
@@ -21,7 +21,13 @@ $Owner = "paidhima"
 function Protect-Repo {
     param([string]$RepoName)
 
-    Write-Host "Applying branch protection to ${Owner}/${RepoName} (main)..."
+    $defaultBranch = gh api "repos/${Owner}/${RepoName}" --jq ".default_branch" 2>&1
+    if (-not $defaultBranch) {
+        Write-Host "  FAILED: ${RepoName} - could not determine default branch" -ForegroundColor Red
+        return
+    }
+
+    Write-Host "Applying branch protection to ${Owner}/${RepoName} (${defaultBranch})..."
 
     $body = @{
         required_status_checks        = $null
@@ -33,7 +39,7 @@ function Protect-Repo {
     } | ConvertTo-Json -Depth 3
 
     try {
-        $body | gh api "repos/${Owner}/${RepoName}/branches/main/protection" -X PUT --input - 2>&1 | Out-Null
+        $body | gh api "repos/${Owner}/${RepoName}/branches/${defaultBranch}/protection" -X PUT --input - 2>&1 | Out-Null
         Write-Host "  OK: ${RepoName}" -ForegroundColor Green
     }
     catch {

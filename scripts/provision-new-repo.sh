@@ -130,7 +130,7 @@ if [ "${skip_protect}" != "true" ]; then
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   protect_script="${script_dir}/protect-main.sh"
   if [ -x "${protect_script}" ]; then
-    echo "Applying baseline branch protection..."
+    echo "Applying baseline branch protection to repository default branch..."
     bash "${protect_script}" "${repo_name}"
   else
     echo "Warning: branch protection script not executable at ${protect_script}" >&2

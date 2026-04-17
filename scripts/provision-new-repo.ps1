@@ -78,7 +78,7 @@ if (-not $SkipBranchProtection) {
     $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
     $protectScript = Join-Path $scriptRoot "protect-main.ps1"
     if (Test-Path $protectScript) {
-        Write-Host "Applying baseline branch protection..."
+        Write-Host "Applying baseline branch protection to repository default branch..."
         & $protectScript -Repo $RepoName
     }
     else {

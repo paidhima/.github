@@ -48,7 +48,7 @@ Behavior:
 
 1. Creates repo from the selected template.
 2. Clones into the configured workspace.
-3. Applies baseline branch protection.
+3. Applies baseline branch protection to the repository default branch.
 4. Creates `feature/bootstrap-repo-standards` branch.
 
 ## Provisioning Paths
